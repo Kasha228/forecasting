@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres:latest   
+    restart: always          
+    environment:
+      - POSTGRES_DB=flextools_forecasting
+      - POSTGRES_USER=flextools_forecasting
+      - POSTGRES_PASSWORD=flextools_forecasting  
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flextools_forecasting"]  
+      interval: 10s  
+      timeout: 3s  
+      retries: 5
+
+
+  slt-db:  # Database for SLT service
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=flextools_slt
+      - POSTGRES_USER=flextools_slt
+      - POSTGRES_PASSWORD=flextools_slt
+    volumes:
+      - slt_postgres_data:/var/lib/postgresql/data  # Separate volume for SLT data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flextools_slt"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+  slt:  # Storage Location Tracking Service
+    image: lsogit.fzi.de:5001/flextools/microservices/storagelocationtracking:main
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URI=postgresql://flextools_slt:flextools_slt@slt-db:5432/flextools_slt  # Connect to slt-db
+    depends_on:
+      slt-db:
+        condition: service_healthy
+
+  app: 
+    build: .       
+    ports:
+      - "5002:5002" 
+    environment:
+      - DATABASE_URI=postgresql://flextools_forecasting:flextools_forecasting@db:5432/flextools_forecasting
+      - STORAGE_LOCATION_TRACKING_URI=http://slt:5000/api/v1
+      - FLASK_ENV=development  
+    depends_on:
+      db: 
+        condition: service_healthy
+    volumes:
+      - ./flextools_forecasting:/app   
+
+volumes:
+  postgres_data:  
+  slt_postgres_data:

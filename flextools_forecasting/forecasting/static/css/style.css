@@ -1,0 +1,376 @@
+@media (max-width: 768px) {
+    .widget a {
+        width: 120px; /* Adjust for smaller screens */
+        height: 80px; /* Adjust for smaller screens */
+        font-size: 12px; /* Adjust for smaller screens */
+    }
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto; 
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  /* user-select: none; */ /* Apply selectively to specific elements if needed */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-areas:
+    "header header"
+    "sidenav main"
+    "footer footer";
+  height: 100vh;
+
+}
+
+.header {
+  grid-area: header;
+  background-color: white;
+}
+
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  grid-area: sidenav;
+  background-color: #394263;
+}
+
+.main {
+  grid-area: main;
+    background-color: #555;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #648ca6;
+}
+
+.header,
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #343a40;
+  color: #fff;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.sidenav_list {
+  padding: 0px;
+  margin-top: 100px;
+  list-style-type: none;
+}
+
+.sidenav_list-item {
+  padding: 20px 20px 20px 40px;
+  color: #ddd;
+}
+
+.sidenav_list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.main-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 20px;
+  height: 100px;
+  /* Force our height since we don't have actual content yet */
+  background-color: #e3e4e6;
+  color: slategray;
+
+}
+
+.main-header_updates {
+  background-color: lightgreen;
+  height: 30px;
+}
+
+.text-white {
+        color: white;
+    }
+
+.bg-dark {
+        background-color: #343a40; /* Dark background for input fields */
+}
+.form-control {
+    color: white;
+    background-color: #343a40; /* Dark background for input fields */
+    border: 1px solid #495057; /* Light border for inputs */
+}
+.form-control::placeholder {
+    color: #868e96; /* Placeholder text color */
+}
+.btn-primary {
+    background-color: #0069d9; /* Primary button color */
+    border-color: #0062cc; /* Button border color */
+}
+.btn-primary:hover {
+    background-color: #004d99; /* Darker shade on hover */
+    border-color: #003d73; /* Darker border on hover */
+}
+
+.overviewcard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: rgba(240, 210, 240, 0.2);
+}
+
+.main-cards {
+  column-count: 2;
+  column-gap: 20px;
+  margin: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #82bef6;
+  margin-bottom: 20px;
+  -webkit-column-break-inside: avoid;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Force varying heights to simulate dynamic content */
+
+.error {
+  width: 50%;
+  padding-left: 10%;
+  padding-right: 10%;
+  text-align: center;
+  font-size: 1vw;
+  background: #bd0e2f;
+}
+
+.success {
+  width: 50%;
+  padding-left: 10%;
+  padding-right: 10%;
+  text-align: center;
+  font-size: 1vw;
+  background: greenyellow;
+}
+
+.cards {
+
+  float: right;
+  padding-left: 20%;
+  padding-right: 20%;
+  margin-bottom: 2vw;
+
+
+}
+
+.eta {
+  text-align: center;
+  color: green;
+  height: 70%;
+  font-size: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 6%;
+}
+
+.flexbox {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.container {
+  width: 300;
+  height: 750px;
+}
+
+.container2 {
+  border: 3px dashed black;
+  width: 750px;
+  height: 750px;
+}
+
+table {
+  width: 100%;
+}
+
+#product-table {
+  background-color: white;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers items horizontally */
+}
+
+#container {
+    width: 100%; /* Adjust this width as needed */
+    max-width: 800px; /* Set a maximum width */
+}
+
+table.dataTable,
+table.dataTable thead th,
+table.dataTable tfoot th,
+table.dataTable tbody td {
+    border: none;
+    color: white;
+}
+
+/* Remove border and outline from table cells */
+.table-striped td,
+.table-striped th {
+    border: none;
+    outline: none;
+}
+
+/* Optional: Remove padding or other styles if needed */
+.table-striped td,
+.table-striped th {
+    padding: 0.5rem; /* Adjust padding as necessary */
+}
+
+/* Optionally remove borders from DataTables pagination controls */
+.dataTables_paginate {
+    border: none;
+}
+
+.widget-container {
+    display: flex;
+    justify-content: center; /* Center widgets horizontally */
+    gap: 20px; /* Space between widgets */
+    margin-top: 20px; /* Space above the widgets */
+}
+
+.widget {
+    text-align: center;
+}
+
+.widget a {
+    display: flex;
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    width: 150px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    font-size: 14px; /* Adjust font size */
+    text-decoration: none;
+    color: white;
+    background-color: #007bff; /* Primary button color */
+    border-radius: 8px;
+    padding: 10px; /* Add padding */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+    overflow: hidden; /* Prevent overflow */
+    word-wrap: break-word; /* Break long words */
+    white-space: normal; /* Allow wrapping */
+}
+
+.widget a:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
+.sidenav {
+  background-color: #343a40; 
+  color: #fff; 
+  height: 100%; 
+  padding-top: 1rem; /* Use rem for better scalability */
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Add a subtle shadow */
+}
+
+.sidenav_list {
+  list-style: none; 
+  padding: 0;
+}
+
+.sidenav_list-item {
+  padding: 0.75rem 1rem; /* Use rem for padding */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.sidenav_list-item.active {
+  background-color: #17a2b8; /* Teal accent for active link (optional) */
+}
+
+.sidenav_list-item:hover {
+  background-color: #495057; 
+}
+
+.sidenav a {
+  color: #fff; 
+  text-decoration: none; 
+}
+
+.sidenav_list-item.active {
+  background-color: #007bff; 
+  font-weight: bold;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+}
+
+.sidebar {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  height: 100%; 
+}
+
+.occupied {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: red; 
+}
+
+.vacant {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: green; 
+}
+h2 {
+  color: #fff; 
+  margin-bottom: 1.5rem; 
+  font-weight: bold; 
+}
+.navbar-brand img {
+  height: 50px; 
+  margin-right: 0.5rem; 
+}
+.footer__content {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+.footer__logo {
+    max-width: 100px; 
+    height: auto;
+    margin-left: auto; 
+}

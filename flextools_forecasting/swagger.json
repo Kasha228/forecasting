@@ -1,0 +1,26 @@
+{
+    "swagger": "2.0",
+    "basePath": "/api/v1",
+    "paths": {},
+    "info": {
+        "title": "ForecastingAPI",
+        "version": "1.0",
+        "description": "A simple API for accessing the Forecasting system."
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [],
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    },
+    "host": "localhost:5002"
+}
