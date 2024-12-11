@@ -7,3 +7,4 @@ sqlalchemy_utils==0.37.8
 psycopg2
 gunicorn
 requests
+scipy

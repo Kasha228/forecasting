@@ -1,7 +1,65 @@
 {
     "swagger": "2.0",
     "basePath": "/api/v1",
-    "paths": {},
+    "paths": {
+        "/transaction/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "Creates a new TransactionForecast",
+                "operationId": "post_transaction_forecast_resource",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TransactionForecast"
+                        }
+                    }
+                ],
+                "tags": [
+                    "transaction"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TransactionForecast"
+                            }
+                        }
+                    }
+                },
+                "summary": "Returns a list of all DemandForecasts",
+                "operationId": "get_transaction_forecast_resource",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "description": "The unique identifier of the Transaction Forecast"
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "transaction"
+                ]
+            }
+        }
+    },
     "info": {
         "title": "ForecastingAPI",
         "version": "1.0",
@@ -13,7 +71,101 @@
     "consumes": [
         "application/json"
     ],
-    "tags": [],
+    "tags": [
+        {
+            "name": "transaction",
+            "description": "Transaction Forecast operations"
+        }
+    ],
+    "definitions": {
+        "TransactionForecast": {
+            "required": [
+                "algorithm",
+                "event_type",
+                "predicted_output"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The unique identifier of the TransactionForecast",
+                    "readOnly": true
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "The timestamp of the TransactionForecast",
+                    "readOnly": true
+                },
+                "input_data": {
+                    "description": "The input data for the forecast",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/InputData"
+                        }
+                    ]
+                },
+                "forecast_type": {
+                    "type": "string",
+                    "description": "The type of the forecast",
+                    "readOnly": true,
+                    "default": "transaction"
+                },
+                "algorithm": {
+                    "type": "string",
+                    "description": "The algorithm used for the forecast",
+                    "default": "poisson_process"
+                },
+                "algorithm_version": {
+                    "type": "string",
+                    "description": "The version of the algorithm used",
+                    "default": "v1"
+                },
+                "prediction_horizon": {
+                    "type": "integer",
+                    "description": "The prediction horizon of the forecast",
+                    "default": 10
+                },
+                "predicted_output": {
+                    "description": "The predicted output of the forecast",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/Prediction"
+                        }
+                    ]
+                },
+                "event_type": {
+                    "type": "string",
+                    "description": "The type of event to forecast",
+                    "default": "both"
+                }
+            },
+            "type": "object"
+        },
+        "InputData": {
+            "properties": {
+                "transaction_history": {
+                    "type": "string",
+                    "description": "The Transaction history"
+                }
+            },
+            "type": "object"
+        },
+        "Prediction": {
+            "required": [
+                "next_transaction"
+            ],
+            "properties": {
+                "next_transaction": {
+                    "type": "string",
+                    "description": "The next transaction"
+                },
+                "confidence_interval": {
+                    "type": "string",
+                    "description": "The confidence interval of the forecast"
+                }
+            },
+            "type": "object"
+        }
+    },
     "responses": {
         "ParseError": {
             "description": "When a mask can't be parsed"
