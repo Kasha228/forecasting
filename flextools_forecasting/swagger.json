@@ -3,28 +3,6 @@
     "basePath": "/api/v1",
     "paths": {
         "/transaction/": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "summary": "Creates a new TransactionForecast",
-                "operationId": "post_transaction_forecast_resource",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/TransactionForecast"
-                        }
-                    }
-                ],
-                "tags": [
-                    "transaction"
-                ]
-            },
             "get": {
                 "responses": {
                     "200": {
@@ -52,6 +30,28 @@
                         "type": "string",
                         "format": "mask",
                         "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "transaction"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "summary": "Creates a new TransactionForecast",
+                "operationId": "post_transaction_forecast_resource",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/TransactionForecast"
+                        }
                     }
                 ],
                 "tags": [
