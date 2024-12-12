@@ -20,11 +20,21 @@ transaction_forecast_model = api_namespace.model('TransactionForecast', {
     'timestamp': fields.String(description='The timestamp of the TransactionForecast', readonly=True),
     'input_data': fields.Nested(input_data_model, description='The input data for the forecast', required=False),
     'forecast_type': fields.String(description='The type of the forecast', readonly=True, default="transaction"),
-    'algorithm': fields.String(description='The algorithm used for the forecast', required=True, default="poisson_process"),
-    'algorithm_version': fields.String(description='The version of the algorithm used', required=False, default="v1"),
-    'prediction_horizon': fields.Integer(description='The prediction horizon of the forecast', required=False, default=10),
-    'predicted_output': fields.Nested(prediction_model, description='The predicted output of the forecast', required=True),
-    'event_type': fields.String(description='The type of event to forecast', required=True, default="both")
+    'algorithm': fields.String(
+        description='The algorithm used for the forecast',
+        required=True,
+        default="poisson_process",
+        enum=['poisson_process', 'exponential_smoothing']
+    ),
+    'algorithm_version': fields.String(description='The version of the algorithm used', readonly=False, default="v1"),
+    'prediction_horizon': fields.Integer(description='The prediction horizon of the forecast', readonly=False, default=10),
+    'predicted_output': fields.Nested(prediction_model, description='The predicted output of the forecast', readonly=True),
+    'event_type': fields.String(
+        description='The type of event to forecast',
+        required=True,
+        default="both",
+        enum=['storage', 'retrieval', 'both']
+    )
 })
 
 @api_namespace.route('/', methods=['GET', 'POST'])
@@ -46,7 +56,7 @@ class TransactionForecastResource(Resource):
         Creates a new TransactionForecast 
         """
         data = request.json
-        forecast = TransactionForecastAlgorithm().predict(data['algorithm'], data.get('event_type'), data.get('input_data'), data.get('prediction_horizon'))
+        forecast = TransactionForecastAlgorithm().predict(data['algorithm'], data.get('input_data'), data.get('event_type'), data.get('prediction_horizon'))
         forecast_data = TransactionForecast(
             input_data=data.get('input_data'),
             algorithm=data['algorithm'],

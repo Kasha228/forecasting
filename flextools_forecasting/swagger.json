@@ -81,8 +81,7 @@
         "TransactionForecast": {
             "required": [
                 "algorithm",
-                "event_type",
-                "predicted_output"
+                "event_type"
             ],
             "properties": {
                 "id": {
@@ -112,20 +111,28 @@
                 "algorithm": {
                     "type": "string",
                     "description": "The algorithm used for the forecast",
-                    "default": "poisson_process"
+                    "default": "poisson_process",
+                    "example": "poisson_process",
+                    "enum": [
+                        "poisson_process",
+                        "exponential_smoothing"
+                    ]
                 },
                 "algorithm_version": {
                     "type": "string",
                     "description": "The version of the algorithm used",
+                    "readOnly": false,
                     "default": "v1"
                 },
                 "prediction_horizon": {
                     "type": "integer",
                     "description": "The prediction horizon of the forecast",
+                    "readOnly": false,
                     "default": 10
                 },
                 "predicted_output": {
                     "description": "The predicted output of the forecast",
+                    "readOnly": true,
                     "allOf": [
                         {
                             "$ref": "#/definitions/Prediction"
@@ -135,7 +142,13 @@
                 "event_type": {
                     "type": "string",
                     "description": "The type of event to forecast",
-                    "default": "both"
+                    "default": "both",
+                    "example": "storage",
+                    "enum": [
+                        "storage",
+                        "retrieval",
+                        "both"
+                    ]
                 }
             },
             "type": "object"
